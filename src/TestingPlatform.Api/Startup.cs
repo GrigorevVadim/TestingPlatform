@@ -47,6 +47,9 @@ namespace TestingPlatform.Api
             if (env.IsDevelopment()) 
                 app.UseDeveloperExceptionPage();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthentication();
