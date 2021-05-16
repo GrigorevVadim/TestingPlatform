@@ -12,6 +12,8 @@ namespace TestingPlatform.Api.Configuration
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<UserDto, UserDbo>();
+                cfg.CreateMap<QuestionDbo, QuestionDto>();
+                cfg.CreateMap<TestDbo, TestDto>();
             });
             var mapper = new Mapper(config);
             services.AddSingleton<IMapper>(mapper);
