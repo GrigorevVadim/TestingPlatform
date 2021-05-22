@@ -8,7 +8,7 @@ async function LoginFunction() {
         })
     });
     if (response.ok === true) {
-        document.getElementById("result").innerHTML = await response.json();
+        location.href = '../';
     }
 }
 
@@ -22,15 +22,6 @@ async function RegFunction() {
         })
     });
     if (response.ok === true) {
-        document.getElementById("result").innerHTML = await response.json();
-    }
-}
-
-async function LogoutFunction() {
-    const response = await fetch("../api/v1/Users/Logout", {
-        method: "GET"
-    });
-    if (response.ok === true) {
-        document.getElementById("result").innerHTML = "empty";
+        location.href = '../';
     }
 }
