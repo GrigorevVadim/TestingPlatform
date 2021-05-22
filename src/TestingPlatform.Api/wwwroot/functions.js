@@ -20,19 +20,25 @@ function row(test) {
     const id = document.createElement("td");
     id.append(test.id);
     tr.append(id);
-    
+
     const name = document.createElement("td");
     const aHref = document.createElement("a");
     aHref.append(test.name);
     aHref.setAttribute("href", "./edit?testId=" + test.id)
     name.append(aHref);
     tr.append(name);
-
+    
+    const tRef = document.createElement("td");
+    const tHref = document.createElement("a");
+    tHref.append("reference");
+    tHref.setAttribute("href", "./execution?testId=" + test.id)
+    tRef.append(tHref);
+    tr.append(tRef);
+    
+    const remove = document.createElement("td");
     const button = document.createElement("button");
     button.setAttribute("onClick", "RemoveFunction(\'"+test.id+"\')");
     button.append("Remove");
-    
-    const remove = document.createElement("td");
     remove.append(button);
     tr.append(remove);
     

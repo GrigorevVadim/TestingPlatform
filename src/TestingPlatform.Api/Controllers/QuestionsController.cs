@@ -29,11 +29,6 @@ namespace TestingPlatform.Api.Controllers
         [HttpGet("List")]
         public async Task<ActionResult> GetListAsync(Guid testId)
         {
-            var user = await GetUser();
-            var test = await _context.Tests.SingleAsync(t => t.Id == testId);
-            if (test.Owner.Id != user.Id)
-                return Forbid();
-
             var questions = await _context.Questions.Where(q => q.Test.Id == testId).ToListAsync();
             return Ok(_mapper.Map<List<QuestionDto>>(questions));
         }

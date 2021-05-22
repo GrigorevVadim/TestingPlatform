@@ -62,10 +62,7 @@ namespace TestingPlatform.Api.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAsync(Guid testId)
         {
-            var user = await GetUser();
             var test = await _context.Tests.SingleAsync(t => t.Id == testId);
-            if (test.Owner.Id != user.Id)
-                return Forbid();
             
             return Ok(_mapper.Map<TestDto>(test));
         }
