@@ -1,4 +1,25 @@
 async function SendFunction() {
+    const questions = JSON.parse(localStorage.getItem('questions'));
+    const answers = [];
+    Array.from(questions).forEach(question => {
+        console.log(question.id);
+        const val = document.getElementById(question.id).value;
+        console.log(val);
+        answers.push({ QuestionId: question.id, UserAnswer: val })
+    })
+
+    const response = await fetch("../api/v1/Answers/SendList", {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify(answers)
+    });
+    if (response.ok === true) {
+        const resultId = await response.json();
+        location.href = '../answers?resultId=' + resultId;
+    }
+    if (response.status === 401) {
+        location.href = '../auth';
+    }
 }
 
 async function GetListFunction() {
@@ -13,6 +34,7 @@ async function GetListFunction() {
         questions.forEach(question => {
             rows.append(row(question));
         });
+        localStorage.setItem('questions', JSON.stringify(questions));
     }
     if (response.status === 401) {
         location.href = '../auth';
@@ -27,8 +49,6 @@ async function GetTestInfoFunction() {
     });
     if (response.ok === true) {
         const test = await response.json();
-        console.log(test.name);
-        console.log(document.getElementById("questionName"));
         document.getElementById("questionName").append(test.name);
     }
     if (response.status === 401) {

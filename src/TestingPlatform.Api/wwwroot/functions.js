@@ -34,6 +34,13 @@ function row(test) {
     tHref.setAttribute("href", "./execution?testId=" + test.id)
     tRef.append(tHref);
     tr.append(tRef);
+
+    const rRef = document.createElement("td");
+    const rHref = document.createElement("a");
+    rHref.append("results");
+    rHref.setAttribute("href", "./results?testId=" + test.id)
+    rRef.append(rHref);
+    tr.append(rRef);
     
     const remove = document.createElement("td");
     const button = document.createElement("button");
