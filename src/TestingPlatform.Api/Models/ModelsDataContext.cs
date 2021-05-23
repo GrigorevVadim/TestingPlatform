@@ -14,5 +14,9 @@ namespace TestingPlatform.Api.Models
         public DbSet<TestDbo> Tests { get; set; }
 
         public DbSet<QuestionDbo> Questions { get; set; }
+
+        public DbSet<ResultDbo> Results { get; set; }
+
+        public DbSet<AnswerDbo> Answers { get; set; }
     }
 }

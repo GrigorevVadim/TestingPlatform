@@ -14,6 +14,11 @@ namespace TestingPlatform.Api.Configuration
                 cfg.CreateMap<UserDto, UserDbo>();
                 cfg.CreateMap<QuestionDbo, QuestionDto>();
                 cfg.CreateMap<TestDbo, TestDto>();
+                cfg.CreateMap<AnswerDto, AnswerDbo>();
+                cfg.CreateMap<AnswerDbo, AnswerDto>();
+                cfg.CreateMap<ResultDbo, ResultDto>()
+                    .ForMember("UserLogin", opt => 
+                        opt.MapFrom(r => r.User.Login));
             });
             var mapper = new Mapper(config);
             services.AddSingleton<IMapper>(mapper);
