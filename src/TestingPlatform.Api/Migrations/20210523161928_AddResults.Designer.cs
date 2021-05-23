@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestingPlatform.Api.Models;
 
 namespace TestingPlatform.Api.Migrations
 {
     [DbContext(typeof(ModelsDataContext))]
-    partial class ModelsDataContextModelSnapshot : ModelSnapshot
+    [Migration("20210523161928_AddResults")]
+    partial class AddResults
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
