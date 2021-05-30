@@ -48,7 +48,11 @@ namespace TestingPlatform.Api.Controllers
         public async Task<ActionResult> UpdateAsync([FromBody] TestDto testDto)
         {
             var user = await GetUser();
-            var test = await _context.Tests.SingleAsync(t => t.Id == testDto.Id);
+            var test = await _context.Tests.FirstOrDefaultAsync(t => t.Id == testDto.Id);
+
+            if (test == null)
+                return BadRequest("Test not exists");
+
             if (test.Owner.Id != user.Id)
                 return Forbid();
 
