@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TestingPlatform.Api.Authentication;
 using TestingPlatform.Api.Configuration;
+using TestingPlatform.Api.Core;
 using TestingPlatform.Api.Models;
 
 namespace TestingPlatform.Api
@@ -39,7 +40,9 @@ namespace TestingPlatform.Api
                 options.Filters.Add(new AuthorizeFilter(authRequiredPolicy));
             });
 
-            services.AddAutoMapper();
+            services
+                .AddAutoMapper()
+                .AddScoped<AnswersHandler>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
