@@ -42,7 +42,8 @@ namespace TestingPlatform.Api
 
             services
                 .AddAutoMapper()
-                .AddScoped<AnswersHandler>();
+                .AddScoped<AnswersHandler>()
+                .AddSwaggerDocument();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -52,6 +53,9 @@ namespace TestingPlatform.Api
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseRouting();
 
