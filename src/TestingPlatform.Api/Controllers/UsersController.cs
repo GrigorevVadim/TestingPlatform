@@ -28,6 +28,10 @@ namespace TestingPlatform.Api.Controllers
         public async Task<ActionResult> RegisterUserAsync([FromBody] UserDto userDto)
         {
             var userDbo = _mapper.Map<UserDbo>(userDto);
+            var count = _context.Users.Count(u => u.Login == userDto.Login);
+            if (count != 0)
+                return BadRequest("User already exist");
+            
             userDbo.Token = Guid.NewGuid();
             userDbo.LastLogIn = DateTime.Now;
             _context.Add(userDbo);
