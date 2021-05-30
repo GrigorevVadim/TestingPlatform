@@ -36,7 +36,7 @@ namespace TestingPlatform.Api.Controllers
 
             var test = await _answersHandler.GetTestAsync(answersDbo);
             if (test == null)
-                return BadRequest("The number of tests is more than one");
+                return BadRequest("Answers contains wrong elements");
             
             return Ok(await _answersHandler.SaveAnswersAsync(answersDbo, test, await GetUser()));
         }

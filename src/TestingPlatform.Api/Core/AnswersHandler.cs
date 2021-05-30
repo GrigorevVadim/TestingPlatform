@@ -24,8 +24,10 @@ namespace TestingPlatform.Api.Core
                 .ThenInclude(t => t.Questions)
                 .SingleAsync(q => q.Id == answersDbo[0].QuestionId)).Test;
 
-            var questionsIds = test.Questions.Select(q => q.Id).ToList();
+            if (answersDbo.Count != answersDbo.Select(a => a.QuestionId).Distinct().Count())
+                return null;
 
+            var questionsIds = test.Questions.Select(q => q.Id).ToList();
             return answersDbo.Any(a => !questionsIds.Contains(a.QuestionId)) ? null : test;
         }
 
