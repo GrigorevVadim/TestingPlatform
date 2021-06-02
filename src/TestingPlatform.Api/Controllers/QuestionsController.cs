@@ -37,8 +37,11 @@ namespace TestingPlatform.Api.Controllers
         public async Task<ActionResult> AddAsync(Guid testId)
         {
             var user = await GetUser();
-            var test = await _context.Tests.SingleAsync(t => t.Id == testId);
-            if (test.Owner.Id != user.Id)
+            var test = await _context.Tests.FirstOrDefaultAsync(t => t.Id == testId);
+            if (test == null)
+                return BadRequest("Test does not exist");
+
+            if (test.Owner?.Id != user.Id)
                 return Forbid();
 
             var question = new QuestionDbo { Test = test };
@@ -51,10 +54,12 @@ namespace TestingPlatform.Api.Controllers
         [HttpPatch]
         public async Task<ActionResult> UpdateAsync([FromBody] QuestionDto questionDto)
         {
-            var questionDbo = await _context.Questions.Include(q => q.Test).SingleAsync(q => q.Id == questionDto.Id);
+            var questionDbo = await _context.Questions.Include(q => q.Test).FirstOrDefaultAsync(q => q.Id == questionDto.Id);
+            if (questionDbo == null)
+                return BadRequest("Question does not exist");
 
             var user = await GetUser();
-            if (questionDbo.Test.Owner.Id != user.Id)
+            if (questionDbo.Test.Owner?.Id != user.Id)
                 return Forbid();
 
             questionDbo.Question = questionDto.Question;
@@ -68,10 +73,12 @@ namespace TestingPlatform.Api.Controllers
         [HttpDelete]
         public async Task<ActionResult> RemoveAsync(Guid questionId)
         {
-            var questionDbo = await _context.Questions.Include(q => q.Test).SingleAsync(q => q.Id == questionId);
+            var questionDbo = await _context.Questions.Include(q => q.Test).FirstOrDefaultAsync(q => q.Id == questionId);
+            if (questionDbo == null)
+                return BadRequest("Question does not exist");
 
             var user = await GetUser();
-            if (questionDbo.Test.Owner.Id != user.Id)
+            if (questionDbo.Test.Owner?.Id != user.Id)
                 return Forbid();
 
             _context.Remove(questionDbo);

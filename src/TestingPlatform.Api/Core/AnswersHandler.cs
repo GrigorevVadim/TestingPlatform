@@ -22,9 +22,9 @@ namespace TestingPlatform.Api.Core
             var test = (await _context.Questions
                 .Include(q => q.Test)
                 .ThenInclude(t => t.Questions)
-                .SingleAsync(q => q.Id == answersDbo[0].QuestionId)).Test;
+                .FirstOrDefaultAsync(q => q.Id == answersDbo[0].QuestionId))?.Test;
 
-            if (answersDbo.Count != answersDbo.Select(a => a.QuestionId).Distinct().Count())
+            if (test == null || answersDbo.Count != answersDbo.Select(a => a.QuestionId).Distinct().Count())
                 return null;
 
             var questionsIds = test.Questions.Select(q => q.Id).ToList();

@@ -53,7 +53,7 @@ namespace TestingPlatform.Api.Controllers
             if (test == null)
                 return BadRequest("Test not exists");
 
-            if (test.Owner.Id != user.Id)
+            if (test.Owner?.Id != user.Id)
                 return Forbid();
 
             test.Name = testDto.Name;
@@ -66,8 +66,10 @@ namespace TestingPlatform.Api.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAsync(Guid testId)
         {
-            var test = await _context.Tests.SingleAsync(t => t.Id == testId);
-            
+            var test = await _context.Tests.FirstOrDefaultAsync(t => t.Id == testId);
+            if (test == null)
+                return BadRequest("Test does not exist");
+
             return Ok(_mapper.Map<TestDto>(test));
         }
         
@@ -75,8 +77,11 @@ namespace TestingPlatform.Api.Controllers
         public async Task<ActionResult> RemoveAsync(Guid testId)
         {
             var user = await GetUser();
-            var test = await _context.Tests.SingleAsync(t => t.Id == testId);
-            if (test.Owner.Id != user.Id)
+            var test = await _context.Tests.FirstOrDefaultAsync(t => t.Id == testId);
+            if (test == null)
+                return BadRequest("Test does not exist");
+
+            if (test.Owner?.Id != user.Id)
                 return Forbid();
 
             _context.Remove(test);

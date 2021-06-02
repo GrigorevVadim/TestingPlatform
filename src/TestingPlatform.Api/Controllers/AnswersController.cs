@@ -44,7 +44,10 @@ namespace TestingPlatform.Api.Controllers
         [HttpGet("List")]
         public async Task<ActionResult> GetListAsync(Guid resultId)
         {
-            var result = await _context.Results.Include(r => r.Answers).SingleAsync(r => r.Id == resultId);
+            var result = await _context.Results.Include(r => r.Answers).FirstOrDefaultAsync(r => r.Id == resultId);
+            if (result == null)
+                return BadRequest("Result does not exist");
+
             var answers = _mapper.Map<List<AnswerDto>>(result.Answers);
             
             return Ok(answers);
