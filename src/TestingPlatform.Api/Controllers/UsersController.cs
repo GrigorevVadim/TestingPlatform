@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TestingPlatform.Api.Authentication;
+using TestingPlatform.Api.Core;
 using TestingPlatform.Api.Models;
 using TestingPlatform.Api.Models.Dal;
 using TestingPlatform.Api.Models.Dto;
@@ -13,29 +14,25 @@ namespace TestingPlatform.Api.Controllers
 {
     [AllowAnonymous]
     [Route("api/v1/users")]
-    public class UsersController : ControllerBase
+    public class UsersController : CustomControllerBase
     {
-        private readonly IMapper _mapper;
-        private readonly ModelsDataContext _context;
-
-        public UsersController(IMapper mapper, ModelsDataContext context)
+        public UsersController(IMapper mapper, ModelsDataContext modelsContext)
+            : base(mapper, modelsContext)
         {
-            _mapper = mapper;
-            _context = context;
         }
 
         [HttpPost("register")]
         public async Task<ActionResult> RegisterUserAsync([FromBody] UserDto userDto)
         {
-            var userDbo = _mapper.Map<UserDbo>(userDto);
-            var count = _context.Users.Count(u => u.Login == userDto.Login);
+            var userDbo = Mapper.Map<UserDbo>(userDto);
+            var count = ModelsContext.Users.Count(u => u.Login == userDto.Login);
             if (count != 0)
                 return BadRequest("User already exist");
             
             userDbo.Token = Guid.NewGuid();
             userDbo.LastLogIn = DateTime.Now;
-            _context.Add(userDbo);
-            await _context.SaveChangesAsync();
+            ModelsContext.Add(userDbo);
+            await ModelsContext.SaveChangesAsync();
 
             Response.Cookies.Append(AuthConstants.TokenCookie, userDbo.Token.ToString());
             return Ok(userDbo.Token);
@@ -44,14 +41,14 @@ namespace TestingPlatform.Api.Controllers
         [HttpPost("login")]
         public async Task<ActionResult> LoginAsync([FromBody] UserDto userDto)
         {
-            var userDbo = _context.Users.FirstOrDefault(u => u.Login == userDto.Login && u.Password == userDto.Password);
+            var userDbo = ModelsContext.Users.FirstOrDefault(u => u.Login == userDto.Login && u.Password == userDto.Password);
             if (userDbo == null)
                 return Forbid();
 
             userDbo.Token = Guid.NewGuid();
             userDbo.LastLogIn = DateTime.Now;
-            _context.Update(userDbo);
-            await _context.SaveChangesAsync();
+            ModelsContext.Update(userDbo);
+            await ModelsContext.SaveChangesAsync();
 
             Response.Cookies.Append(AuthConstants.TokenCookie, userDbo.Token.ToString());
             return Ok(userDbo.Token);

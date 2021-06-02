@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TestingPlatform.Api.Core;
 using TestingPlatform.Api.Models;
 using TestingPlatform.Api.Models.Dto;
 
@@ -13,26 +14,22 @@ namespace TestingPlatform.Api.Controllers
 {
     [Authorize]
     [Route("api/v1/Statistics")]
-    public class StatisticsController : ControllerBase
+    public class StatisticsController : CustomControllerBase
     {
-        private readonly IMapper _mapper;
-        private readonly ModelsDataContext _context;
-
-        public StatisticsController(IMapper mapper, ModelsDataContext context)
+        public StatisticsController(IMapper mapper, ModelsDataContext modelsContext)
+            : base(mapper, modelsContext)
         {
-            _mapper = mapper;
-            _context = context;
         }
 
         [HttpGet("GetResultList")]
         public async Task<ActionResult> GetListAsync(Guid testId)
         {
-            var results = await _context.Results
+            var results = await ModelsContext.Results
                 .Include(r => r.User)
                 .Where(r => r.Test.Id == testId)
                 .ToListAsync();
             
-            return Ok(_mapper.Map<List<ResultDto>>(results));
+            return Ok(Mapper.Map<List<ResultDto>>(results));
         }
     }
 }
