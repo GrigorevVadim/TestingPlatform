@@ -64,6 +64,9 @@ function row(question) {
     pQuestion.append("question: " + question.question);
     mainDiv.append(pQuestion);
 
+    const br = document.createElement("br");
+    mainDiv.append(br);
+
     const labelAnswer = document.createElement("label");
     labelAnswer.setAttribute("htmlFor", question.id);
     labelAnswer.append("answer: ");

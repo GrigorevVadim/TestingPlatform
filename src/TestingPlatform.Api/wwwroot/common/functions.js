@@ -6,3 +6,7 @@ async function LogoutFunction(address) {
         location.href = address + '/auth';
     }
 }
+
+async function ReturnToMainPageFunction() {
+    location.href = '../';
+}
