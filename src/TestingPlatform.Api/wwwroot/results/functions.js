@@ -20,7 +20,10 @@ function row(result) {
     const tr = document.createElement("tr");
 
     const id = document.createElement("td");
-    id.append(result.id);
+    const aHref = document.createElement("a");
+    aHref.append(result.id);
+    aHref.setAttribute("href", "../answers?resultId=" + result.id)
+    id.append(aHref);
     tr.append(id);
 
     const dateTime = document.createElement("td");

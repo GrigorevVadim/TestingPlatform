@@ -1,0 +1,127 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: skyblue;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+div.main{
+    padding: 1%;
+    text-align: center;
+}
+
+label{
+    vertical-align: middle;
+    padding: 1%;
+}
+
+h3{
+    margin: 0%;
+}
+
+p{
+    margin: 0%;
+}
+
+p.boldClass{
+    font-weight: bold;
+}
+
+p.aTrue{
+    color: green;
+    font-weight: bold;
+}
+
+p.aFalse{
+    color: red;
+    font-weight: bold;
+}
+
+div.cards{
+    padding: 1%;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: azure;
+    box-shadow: 1px 1px #333333;
+}
+
+div.trueCard{
+    text-align: center;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: palegreen;
+    box-shadow: 1px 1px #333333;
+}
+
+div.falseCard{
+    text-align: center;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: palevioletred;
+    box-shadow: 1px 1px #333333;
+}
+
+div.header{
+    background-color: rgb(67, 67, 192);
+    padding: 10px;
+}
+
+div.header label{
+    vertical-align: text-top;
+    color: azure;
+}
+
+select{
+    border-color: azure;
+    border-radius: 3px;
+    background-color: rgb(49, 49, 151);
+    padding: 5px;
+    color: azure;
+    float: right;
+    margin: -3px;
+    margin-left: 15px;
+}
+
+button{
+    border-color: azure;
+    border-radius: 3px;
+    background-color: rgb(49, 49, 151);
+    padding: 10px;
+    color: azure;
+    float: center;
+    margin-left: 15px;
+}
+
+input{
+    border-color: rgb(49, 49, 151);
+    border-radius: 3px;
+    background-color: azure;
+    padding: 10px;
+    color: rgb(49, 49, 151);
+    float: center;
+    margin-left: 15px;
+}
+
+svg{
+    width: 18px;
+    height: 18px;
+    fill: azure;
+    padding: 2px;
+}
+
+table{
+    border: 1px solid black;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+}

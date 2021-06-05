@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="../index.css">
     <meta charset="UTF-8">
-    <title>Auth</title>
+    <title>Tests</title>
 </head>
 <body>
-<label for="login"> Login </label><input type="text" id="login" name="login" /><br/>
-<label for="pass"> Password </label><input type="text" id="pass" name="pass" /><br/>
+<div class="header">
+    <label>Auth</label>
+</div>
+<div class="main">
+    <label for="login"> Login </label><input type="text" id="login" name="login" /><br/>
+    <label for="pass"> Password </label><input type="text" id="pass" name="pass" /><br/>
 <button onclick="LoginFunction()">Login</button>
 <button onclick="RegFunction()">Reg</button>
+</div>
 <script src="./functions.js"></script>
 </body>
 </html>

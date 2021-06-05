@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="../index.css">
     <meta charset="UTF-8">
-    <title>Edit</title>
+    <title>Tests</title>
 </head>
 <body>
-<h3>Questions</h3>
-<label for="questionName">Name: </label>
-<input id="questionName" name="questionName" type="text"/>
-<button onclick="UpdateTestInfoFunction()">Update</button>
-<div id="questionsList"></div>
+<div class="header">
+    <label>Questions</label>
+    <button onclick="LogoutFunction('..')">Logout</button>
+</div>
+<div class="main">
+    <label for="questionName">Name: </label>
+    <input id="questionName" name="questionName" type="text"/>
+    <button onclick="UpdateTestInfoFunction()">Update</button>
+    <br/>
+    <br/>
+    <div id="questionsList"></div>
 <br/>
 <button onclick="AddFunction()">Add</button>
 <a href="../" >return</a>
+</div>
 <script src="./functions.js"></script>
+<script src="../common/functions.js"></script>
 </body>
 </html>

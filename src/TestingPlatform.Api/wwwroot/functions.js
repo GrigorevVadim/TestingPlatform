@@ -76,13 +76,4 @@ async function RemoveFunction(id) {
     }
 }
 
-async function LogoutFunction() {
-    const response = await fetch("../api/v1/Users/Logout", {
-        method: "GET"
-    });
-    if (response.ok === true) {
-        location.href = './auth';
-    }
-}
-
 GetTests();

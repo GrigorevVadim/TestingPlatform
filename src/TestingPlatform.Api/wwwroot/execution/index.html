@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="../index.css">
     <meta charset="UTF-8">
-    <title>Execution</title>
+    <title>Tests</title>
 </head>
 <body>
-<h3 id="questionName"></h3>
-<div id="questionsList"></div>
-<br/>
-<button onclick="SendFunction()">Send</button>
+<div class="header">
+    <label>Execution</label>
+    <button onclick="LogoutFunction('..')">Logout</button>
+</div>
+<div class="main">
+    <h3 id="questionName"></h3>
+    <br/>
+    <div id="questionsList"></div>
+    <br/>
+    <button onclick="SendFunction()">Send</button>
+    <a href="../" >return</a>
+</div>
 <script src="./functions.js"></script>
+<script src="../common/functions.js"></script>
 </body>
 </html>

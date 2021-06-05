@@ -33,10 +33,7 @@ async function GetTestInfoFunction() {
 
 function row(question) {
     const mainDiv = document.createElement("div");
-    
-    const pNum = document.createElement("p");
-    pNum.append("#" + question.id);
-    mainDiv.append(pNum);
+    mainDiv.setAttribute("class", "cards");
     
     const labelQuestion = document.createElement("label");
     labelQuestion.setAttribute("htmlFor", "q" + question.id);

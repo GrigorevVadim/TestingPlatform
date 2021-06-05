@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="../index.css">
     <meta charset="UTF-8">
-    <title>Test result</title>
+    <title>Tests</title>
 </head>
 <body>
-<table>
-    <thead><tr><th>user answer</th><th>right answer</th><th>result</th></tr></thead>
-    <tbody id="answersList"></tbody>
-</table>
+<div class="header">
+    <label>Test result</label>
+    <button onclick="LogoutFunction('..')">Logout</button>
+</div>
+<div class="main">
+    <table>
+        <thead><tr><th>user answer</th><th>right answer</th><th>result</th></tr></thead>
+        <tbody id="answersList"></tbody>
+    </table>
+</div>
+<a href="../" >return</a>
 <script src="./functions.js"></script>
+<script src="../common/functions.js"></script>
 </body>
 </html>
