@@ -1,4 +1,5 @@
 using System;
+using TestingPlatform.Api.Models.Enums;
 
 namespace TestingPlatform.Api.Models.Dto
 {
@@ -9,5 +10,7 @@ namespace TestingPlatform.Api.Models.Dto
         public string Question { get; set; }
         
         public string Answer { get; set; }
+        
+        public EntityState State { get; set; }
     }
 }

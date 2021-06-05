@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TestingPlatform.Api.Models;
 using TestingPlatform.Api.Models.Dal;
+using EntityState = TestingPlatform.Api.Models.Enums.EntityState;
 
 namespace TestingPlatform.Api.Core
 {
@@ -24,7 +25,9 @@ namespace TestingPlatform.Api.Core
                 .ThenInclude(t => t.Questions)
                 .FirstOrDefaultAsync(q => q.Id == answersDbo[0].QuestionId))?.Test;
 
-            if (test == null || answersDbo.Count != answersDbo.Select(a => a.QuestionId).Distinct().Count())
+            if (test == null 
+                || test.State == EntityState.Deleted
+                || answersDbo.Count != answersDbo.Select(a => a.QuestionId).Distinct().Count())
                 return null;
 
             var questionsIds = test.Questions.Select(q => q.Id).ToList();

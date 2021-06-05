@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using TestingPlatform.Api.Models.Enums;
 
 namespace TestingPlatform.Api.Models.Dal
 {
@@ -13,5 +14,7 @@ namespace TestingPlatform.Api.Models.Dal
         public string Answer { get; set; }
         
         public TestDbo Test { get; set; }
+        
+        public EntityState State { get; set; }
     }
 }

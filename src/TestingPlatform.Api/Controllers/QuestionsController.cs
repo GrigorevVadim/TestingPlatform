@@ -11,6 +11,7 @@ using TestingPlatform.Api.Core;
 using TestingPlatform.Api.Models;
 using TestingPlatform.Api.Models.Dal;
 using TestingPlatform.Api.Models.Dto;
+using EntityState = TestingPlatform.Api.Models.Enums.EntityState;
 
 namespace TestingPlatform.Api.Controllers
 {
@@ -26,7 +27,9 @@ namespace TestingPlatform.Api.Controllers
         [HttpGet("List")]
         public async Task<ActionResult> GetListAsync(Guid testId)
         {
-            var questions = await ModelsContext.Questions.Where(q => q.Test.Id == testId).ToListAsync();
+            var questions = await ModelsContext.Questions
+                .Where(q => q.Test.Id == testId && q.State != EntityState.Deleted)
+                .ToListAsync();
             return Ok(Mapper.Map<List<QuestionDto>>(questions));
         }
 
@@ -34,7 +37,8 @@ namespace TestingPlatform.Api.Controllers
         public async Task<ActionResult> AddAsync(Guid testId)
         {
             var user = await GetUser();
-            var test = await ModelsContext.Tests.FirstOrDefaultAsync(t => t.Id == testId);
+            var test = await ModelsContext.Tests
+                .FirstOrDefaultAsync(t => t.Id == testId && t.State != EntityState.Deleted);
             if (test == null)
                 return BadRequest("Test does not exist");
 
@@ -51,7 +55,9 @@ namespace TestingPlatform.Api.Controllers
         [HttpPatch]
         public async Task<ActionResult> UpdateAsync([FromBody] QuestionDto questionDto)
         {
-            var questionDbo = await ModelsContext.Questions.Include(q => q.Test).FirstOrDefaultAsync(q => q.Id == questionDto.Id);
+            var questionDbo = await ModelsContext.Questions
+                .Include(q => q.Test)
+                .FirstOrDefaultAsync(q => q.Id == questionDto.Id && q.State != EntityState.Deleted);
             if (questionDbo == null)
                 return BadRequest("Question does not exist");
 
@@ -70,7 +76,9 @@ namespace TestingPlatform.Api.Controllers
         [HttpDelete]
         public async Task<ActionResult> RemoveAsync(Guid questionId)
         {
-            var questionDbo = await ModelsContext.Questions.Include(q => q.Test).FirstOrDefaultAsync(q => q.Id == questionId);
+            var questionDbo = await ModelsContext.Questions
+                .Include(q => q.Test)
+                .FirstOrDefaultAsync(q => q.Id == questionId && q.State != EntityState.Deleted);
             if (questionDbo == null)
                 return BadRequest("Question does not exist");
 
@@ -78,7 +86,8 @@ namespace TestingPlatform.Api.Controllers
             if (questionDbo.Test.Owner?.Id != user.Id)
                 return Forbid();
 
-            ModelsContext.Remove(questionDbo);
+            questionDbo.State = EntityState.Deleted;
+            ModelsContext.Update(questionDbo);
             await ModelsContext.SaveChangesAsync();
             
             return Ok();

@@ -1,4 +1,5 @@
 using System;
+using TestingPlatform.Api.Models.Enums;
 
 namespace TestingPlatform.Api.Models.Dto
 {
@@ -7,5 +8,7 @@ namespace TestingPlatform.Api.Models.Dto
         public Guid Id { get; set; }
         
         public string Name { get; set; }
+        
+        public EntityState State { get; set; }
     }
 }

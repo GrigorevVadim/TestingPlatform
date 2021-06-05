@@ -11,6 +11,7 @@ using TestingPlatform.Api.Core;
 using TestingPlatform.Api.Models;
 using TestingPlatform.Api.Models.Dal;
 using TestingPlatform.Api.Models.Dto;
+using EntityState = TestingPlatform.Api.Models.Enums.EntityState;
 
 namespace TestingPlatform.Api.Controllers
 {
@@ -26,7 +27,9 @@ namespace TestingPlatform.Api.Controllers
         [HttpGet("List")]
         public async Task<ActionResult> GetListAsync()
         {
-            var list = await ModelsContext.Tests.Where(t => t.Owner.Id == GetUserId()).ToListAsync();
+            var list = await ModelsContext.Tests
+                .Where(t => t.Owner.Id == GetUserId() && t.State != EntityState.Deleted)
+                .ToListAsync();
             return Ok(Mapper.Map<List<TestDto>>(list));
         }
 
@@ -45,7 +48,8 @@ namespace TestingPlatform.Api.Controllers
         public async Task<ActionResult> UpdateAsync([FromBody] TestDto testDto)
         {
             var user = await GetUser();
-            var test = await ModelsContext.Tests.FirstOrDefaultAsync(t => t.Id == testDto.Id);
+            var test = await ModelsContext.Tests
+                .FirstOrDefaultAsync(t => t.Id == testDto.Id && t.State != EntityState.Deleted);
 
             if (test == null)
                 return BadRequest("Test not exists");
@@ -63,7 +67,8 @@ namespace TestingPlatform.Api.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAsync(Guid testId)
         {
-            var test = await ModelsContext.Tests.FirstOrDefaultAsync(t => t.Id == testId);
+            var test = await ModelsContext.Tests
+                .FirstOrDefaultAsync(t => t.Id == testId && t.State != EntityState.Deleted);
             if (test == null)
                 return BadRequest("Test does not exist");
 
@@ -74,14 +79,15 @@ namespace TestingPlatform.Api.Controllers
         public async Task<ActionResult> RemoveAsync(Guid testId)
         {
             var user = await GetUser();
-            var test = await ModelsContext.Tests.FirstOrDefaultAsync(t => t.Id == testId);
+            var test = await ModelsContext.Tests.FirstOrDefaultAsync(t => t.Id == testId && t.State != EntityState.Deleted);
             if (test == null)
                 return BadRequest("Test does not exist");
 
             if (test.Owner?.Id != user.Id)
                 return Forbid();
 
-            ModelsContext.Remove(test);
+            test.State = EntityState.Deleted;
+            ModelsContext.Update(test);
             await ModelsContext.SaveChangesAsync();
             
             return Ok();

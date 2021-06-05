@@ -41,7 +41,9 @@ namespace TestingPlatform.Api.Controllers
         [HttpGet("List")]
         public async Task<ActionResult> GetListAsync(Guid resultId)
         {
-            var result = await ModelsContext.Results.Include(r => r.Answers).FirstOrDefaultAsync(r => r.Id == resultId);
+            var result = await ModelsContext.Results
+                .Include(r => r.Answers)
+                .FirstOrDefaultAsync(r => r.Id == resultId);
             if (result == null)
                 return BadRequest("Result does not exist");
 
