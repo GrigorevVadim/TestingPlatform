@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Prometheus;
 using TestingPlatform.Api.Authentication;
 using TestingPlatform.Api.Configuration;
 using TestingPlatform.Api.Core;
@@ -58,11 +59,16 @@ namespace TestingPlatform.Api
             app.UseSwaggerUi3();
 
             app.UseRouting();
+            app.UseHttpMetrics();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapMetrics();
+                endpoints.MapControllers();
+            });
         }
     }
 }
