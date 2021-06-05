@@ -28,7 +28,9 @@ function row(answer) {
     tr.append(rightAnswer);
 
     const result = document.createElement("td");
-    result.append(answer.userAnswer === answer.rightAnswer);
+    result.append(answer.userAnswer != undefined
+        && answer.rightAnswer != undefined
+        && answer.userAnswer.trim().toUpperCase() === answer.rightAnswer.trim().toUpperCase());
     tr.append(result);
 
     return tr;

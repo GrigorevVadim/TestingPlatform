@@ -56,7 +56,10 @@ namespace TestingPlatform.Api.Core
         private double CalculateScore(List<AnswerDbo> answersDbo, TestDbo testDbo)
         {
             var rightAnswersCount = answersDbo.Count(a => 
-                string.Equals(a.RightAnswer, a.UserAnswer, StringComparison.InvariantCultureIgnoreCase));
+                string.Equals(
+                    a.RightAnswer?.Trim(),
+                    a.UserAnswer?.Trim(),
+                    StringComparison.InvariantCultureIgnoreCase));
 
             return (double) rightAnswersCount / testDbo.Questions.Count;
         }
