@@ -55,9 +55,9 @@ namespace TestingPlatform.Api.Controllers
         }
 
         [HttpGet("logout")]
-        public ActionResult Logout()
+        public async Task<ActionResult> LogoutAsync()
         {
-            Response.Cookies.Delete(AuthConstants.TokenCookie);
+            await Task.Run(() => Response.Cookies.Delete(AuthConstants.TokenCookie));
             return Ok();
         }
     }

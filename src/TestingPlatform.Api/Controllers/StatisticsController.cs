@@ -31,5 +31,54 @@ namespace TestingPlatform.Api.Controllers
             
             return Ok(Mapper.Map<List<ResultDto>>(results));
         }
+
+        [HttpGet("GetAverageScore")]
+        public async Task<ActionResult> GetAverageScoreAsync(Guid testId)
+        {
+            var results = await ModelsContext.Results
+                .Where(r => r.Test.Id == testId)
+                .ToListAsync();
+
+            var average = results.Sum(result => result.Score) / results.Count;
+
+            return Ok(average);
+        }
+
+        [HttpGet("GetScorePerQuestions")]
+        public async Task<ActionResult> GetScorePerQuestionsAsync(Guid testId)
+        {
+            var questionScores = await ModelsContext.Results
+                .Include(r => r.Answers)
+                .ThenInclude(a => a.Question)
+                .Where(r => r.Test.Id == testId)
+                .SelectMany(r => r.Answers)
+                .GroupBy(a => a.Question.Question)
+                .Select(g => new
+                {
+                    Question = g.Key, 
+                    Score = (double) g.Count(a => a.UserAnswer == a.RightAnswer) / g.Count()
+                })
+                .ToListAsync();
+
+            return Ok(questionScores);
+        }
+
+        [HttpGet("GetScoreDistribution")]
+        public async Task<ActionResult> GetScoreDistributionAsync(Guid testId)
+        {
+            var results = await ModelsContext.Results
+                .Where(r => r.Test.Id == testId)
+                .ToListAsync();
+
+            var list = new List<double>
+            {
+                (double) results.Count(r => r.Score < 0.25) / results.Count,
+                (double) results.Count(r => r.Score is >= 0.25 and < 0.5) / results.Count,
+                (double) results.Count(r => r.Score is >= 0.5 and < 0.75) / results.Count,
+                (double) results.Count(r => r.Score >= 0.75) / results.Count
+            };
+
+            return Ok(list);
+        }
     }
 }

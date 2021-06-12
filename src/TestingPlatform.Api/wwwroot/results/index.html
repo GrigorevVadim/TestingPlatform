@@ -11,7 +11,23 @@
     <button onclick="ReturnToMainPageFunction()">Return</button>
     <button onclick="LogoutFunction('..')">Logout</button>
 </div>
+<div class="main" id="averageScore"></div>
 <div class="main">
+    <h3>ScorePerQuestions</h3>
+    <table>
+        <thead><tr><th>question</th><th>score</th></tr></thead>
+        <tbody id="scorePerQuestions"></tbody>
+    </table>
+</div>
+<div class="main">
+    <h3>ScoreDistribution</h3>
+    <table>
+        <thead><tr><th>score</th><th>percent</th></tr></thead>
+        <tbody id="scoreDistribution"></tbody>
+    </table>
+</div>
+<div class="main">
+    <h3>ResultsList</h3>
     <table>
         <thead><tr><th>id</th><th>dateTime</th><th>score</th><th>userLogin</th></tr></thead>
         <tbody id="resultsList"></tbody>
