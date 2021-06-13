@@ -22,7 +22,7 @@ namespace TestingPlatform.Api.Controllers
         }
 
         [HttpGet("GetResultList")]
-        public async Task<ActionResult> GetListAsync(Guid testId)
+        public async Task<ActionResult> GetResultListAsync(Guid testId)
         {
             var results = await ModelsContext.Results
                 .Include(r => r.User)

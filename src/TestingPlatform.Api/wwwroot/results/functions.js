@@ -116,7 +116,10 @@ async function GetAverageScoreFunction() {
     });
     if (response.ok === true) {
         const averageScore = await response.json();
-        document.getElementById("averageScore").append("average: " + averageScore);
+
+        const averageElement = document.createElement("b");
+        averageElement.append("AverageScore: " + averageScore);
+        document.getElementById("averageScore").append(averageElement);
     }
     if (response.status === 401) {
         location.href = '../auth';
