@@ -37,7 +37,7 @@ function row(question) {
     
     const labelQuestion = document.createElement("label");
     labelQuestion.setAttribute("htmlFor", "q" + question.id);
-    labelQuestion.append("question: ");
+    labelQuestion.append("Вопрос: ");
     mainDiv.append(labelQuestion);
     
     const inputQuestion = document.createElement("input");
@@ -52,7 +52,7 @@ function row(question) {
 
     const labelAnswer = document.createElement("label");
     labelAnswer.setAttribute("htmlFor", "a" + question.id);
-    labelAnswer.append("answer: ");
+    labelAnswer.append("Ответ: ");
     mainDiv.append(labelAnswer);
 
     const inputAnswer = document.createElement("input");
@@ -67,12 +67,12 @@ function row(question) {
     
     const button = document.createElement("button");
     button.setAttribute("onClick", "SaveFunction(\'"+question.id+"\')");
-    button.append("Save");
+    button.append("Сохранить");
     mainDiv.append(button);
 
     const delButton = document.createElement("button");
     delButton.setAttribute("onClick", "RemoveFunction(\'"+question.id+"\')");
-    delButton.append("Remove");
+    delButton.append("Удалить");
     mainDiv.append(delButton);
     
     return mainDiv;

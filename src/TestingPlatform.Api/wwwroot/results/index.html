@@ -7,29 +7,29 @@
 </head>
 <body>
 <div class="header">
-    <label>Execution</label>
-    <button onclick="ReturnToMainPageFunction()">Return</button>
-    <button onclick="LogoutFunction('..')">Logout</button>
+    <label>Статистика</label>
+    <button onclick="ReturnToMainPageFunction()">На главную</button>
+    <button onclick="LogoutFunction('..')">Выйти</button>
 </div>
 <div class="main" id="averageScore"></div>
 <div class="main">
-    <h3>ScorePerQuestions</h3>
+    <h3>Средня оценка по отдельным вопросам</h3>
     <table>
-        <thead><tr><th>question</th><th>score</th></tr></thead>
+        <thead><tr><th>Вопрос</th><th>Средняя оценка</th></tr></thead>
         <tbody id="scorePerQuestions"></tbody>
     </table>
 </div>
 <div class="main">
-    <h3>ScoreDistribution</h3>
+    <h3>Распределение оценок по тесту</h3>
     <table>
-        <thead><tr><th>score</th><th>percent</th></tr></thead>
+        <thead><tr><th>Оценка</th><th>Распределение</th></tr></thead>
         <tbody id="scoreDistribution"></tbody>
     </table>
 </div>
 <div class="main">
-    <h3>ResultsList</h3>
+    <h3>Список результатов прохождения тестов</h3>
     <table>
-        <thead><tr><th>id</th><th>dateTime</th><th>score</th><th>userLogin</th></tr></thead>
+        <thead><tr><th>Пользователь</th><th>Оценка</th><th>Дата</th><th>Ссылка</th></tr></thead>
         <tbody id="resultsList"></tbody>
     </table>
 </div>

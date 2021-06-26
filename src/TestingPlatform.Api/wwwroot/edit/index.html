@@ -7,19 +7,19 @@
 </head>
 <body>
 <div class="header">
-    <label>Questions</label>
-    <button onclick="ReturnToMainPageFunction()">Return</button>
-    <button onclick="LogoutFunction('..')">Logout</button>
+    <label>Изменение теста</label>
+    <button onclick="ReturnToMainPageFunction()">На главную</button>
+    <button onclick="LogoutFunction('..')">Выйти</button>
 </div>
 <div class="main">
-    <label for="questionName">Name: </label>
+    <label for="questionName">Имя теста: </label>
     <input id="questionName" name="questionName" type="text"/>
-    <button onclick="UpdateTestInfoFunction()">Update</button>
+    <button onclick="UpdateTestInfoFunction()">Обновить</button>
     <br/>
     <br/>
     <div id="questionsList"></div>
 <br/>
-<button onclick="AddFunction()">Add</button>
+<button onclick="AddFunction()">Создать новый вопрос</button>
 </div>
 <script src="./functions.js"></script>
 <script src="../common/functions.js"></script>

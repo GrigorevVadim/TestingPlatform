@@ -19,24 +19,24 @@ async function GetListFunction() {
 function row(result) {
     const tr = document.createElement("tr");
 
-    const id = document.createElement("td");
-    const aHref = document.createElement("a");
-    aHref.append(result.id);
-    aHref.setAttribute("href", "../answers?resultId=" + result.id)
-    id.append(aHref);
-    tr.append(id);
+    const userLogin = document.createElement("td");
+    userLogin.append(result.userLogin);
+    tr.append(userLogin);
+
+    const score = document.createElement("td");
+    score.append(customRound(result.score));
+    tr.append(score);
 
     const dateTime = document.createElement("td");
     dateTime.append(result.dateTime);
     tr.append(dateTime);
 
-    const score = document.createElement("td");
-    score.append(result.score);
-    tr.append(score);
-
-    const userLogin = document.createElement("td");
-    userLogin.append(result.userLogin);
-    tr.append(userLogin);
+    const id = document.createElement("td");
+    const aHref = document.createElement("a");
+    aHref.append("ссылка");
+    aHref.setAttribute("href", "../answers?resultId=" + result.id)
+    id.append(aHref);
+    tr.append(id);
 
     return tr;
 }
@@ -67,7 +67,7 @@ function rowScorePerQuestions(result) {
     tr.append(question);
 
     const score = document.createElement("td");
-    score.append(result.score);
+    score.append(customRound(result.score));
     tr.append(score);
 
     return tr;
@@ -102,7 +102,7 @@ function rowScoreDistribution(result, num) {
     tr.append(score);
 
     const percent = document.createElement("td");
-    percent.append(result);
+    percent.append(customRound(result));
     tr.append(percent);
 
     return tr;
@@ -118,12 +118,17 @@ async function GetAverageScoreFunction() {
         const averageScore = await response.json();
 
         const averageElement = document.createElement("b");
-        averageElement.append("AverageScore: " + averageScore);
+        averageElement.append("Средняя оценка за тест: " + customRound(averageScore));
         document.getElementById("averageScore").append(averageElement);
     }
     if (response.status === 401) {
         location.href = '../auth';
     }
+}
+
+function customRound(num) {
+
+    return Math.round(num * 1000) / 1000;
 }
 
 GetListFunction()

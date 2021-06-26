@@ -61,7 +61,7 @@ function row(question) {
     mainDiv.setAttribute("class", "cards");
 
     const pQuestion = document.createElement("p");
-    pQuestion.append("question: " + question.question);
+    pQuestion.append("Вопрос: " + question.question);
     mainDiv.append(pQuestion);
 
     const br = document.createElement("br");
@@ -69,7 +69,7 @@ function row(question) {
 
     const labelAnswer = document.createElement("label");
     labelAnswer.setAttribute("htmlFor", question.id);
-    labelAnswer.append("answer: ");
+    labelAnswer.append("Ответ: ");
     mainDiv.append(labelAnswer);
 
     const inputAnswer = document.createElement("input");

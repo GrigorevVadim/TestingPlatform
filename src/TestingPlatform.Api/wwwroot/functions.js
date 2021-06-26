@@ -16,28 +16,24 @@ async function GetTests() {
 
 function row(test) {
     const tr = document.createElement("tr");
-    
-    const id = document.createElement("td");
-    id.append(test.id);
-    tr.append(id);
 
     const name = document.createElement("td");
     const aHref = document.createElement("a");
     aHref.append(test.name);
-    aHref.setAttribute("href", "./edit?testId=" + test.id)
+    aHref.setAttribute("href", "./execution?testId=" + test.id)
     name.append(aHref);
     tr.append(name);
     
     const tRef = document.createElement("td");
     const tHref = document.createElement("a");
-    tHref.append("reference");
-    tHref.setAttribute("href", "./execution?testId=" + test.id)
+    tHref.append("ссылка");
+    tHref.setAttribute("href", "./edit?testId=" + test.id)
     tRef.append(tHref);
     tr.append(tRef);
 
     const rRef = document.createElement("td");
     const rHref = document.createElement("a");
-    rHref.append("results");
+    rHref.append("ссылка");
     rHref.setAttribute("href", "./results?testId=" + test.id)
     rRef.append(rHref);
     tr.append(rRef);
@@ -45,7 +41,7 @@ function row(test) {
     const remove = document.createElement("td");
     const button = document.createElement("button");
     button.setAttribute("onClick", "RemoveFunction(\'"+test.id+"\')");
-    button.append("Remove");
+    button.append("удалить");
     remove.append(button);
     tr.append(remove);
     

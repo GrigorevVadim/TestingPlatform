@@ -28,9 +28,10 @@ function row(answer) {
     tr.append(rightAnswer);
 
     const result = document.createElement("td");
-    result.append(answer.userAnswer != undefined
+    const boolResult = answer.userAnswer != undefined
         && answer.rightAnswer != undefined
-        && answer.userAnswer.trim().toUpperCase() === answer.rightAnswer.trim().toUpperCase());
+        && answer.userAnswer.trim().toUpperCase() === answer.rightAnswer.trim().toUpperCase();
+    result.append(boolResult ? "Верно" : "Не верно");
     tr.append(result);
 
     return tr;
