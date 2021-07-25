@@ -31,7 +31,10 @@ function row(answer) {
     const boolResult = answer.userAnswer != undefined
         && answer.rightAnswer != undefined
         && answer.userAnswer.trim().toUpperCase() === answer.rightAnswer.trim().toUpperCase();
-    result.append(boolResult ? "Верно" : "Не верно");
+    const p = document.createElement("p");
+    p.setAttribute("class", boolResult ? "aTrue" : "aFalse");
+    p.append(boolResult ? "Верно" : "Не верно");
+    result.append(p);
     tr.append(result);
 
     return tr;
