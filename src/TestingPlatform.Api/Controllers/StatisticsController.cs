@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestingPlatform.Api.Core;
+using TestingPlatform.Api.Helpers;
 using TestingPlatform.Api.Models;
 using TestingPlatform.Api.Models.Dto;
 
@@ -47,18 +48,21 @@ namespace TestingPlatform.Api.Controllers
         [HttpGet("GetScorePerQuestions")]
         public async Task<ActionResult> GetScorePerQuestionsAsync(Guid testId)
         {
-            var questionScores = await ModelsContext.Results
+            var answers = await ModelsContext.Results
                 .Include(r => r.Answers)
                 .ThenInclude(a => a.Question)
                 .Where(r => r.Test.Id == testId)
                 .SelectMany(r => r.Answers)
-                .GroupBy(a => a.Question.Question)
+                .ToListAsync();
+
+            var questionScores = answers.GroupBy(a => a.Question.Question)
                 .Select(g => new
                 {
                     Question = g.Key, 
-                    Score = (double) g.Count(a => a.UserAnswer == a.RightAnswer) / g.Count()
+                    Score = (double) g.Count(a => 
+                        AnswersHelper.CheckAnswer(a.UserAnswer, a.RightAnswer)) / g.Count()
                 })
-                .ToListAsync();
+                .ToList();
 
             return Ok(questionScores);
         }

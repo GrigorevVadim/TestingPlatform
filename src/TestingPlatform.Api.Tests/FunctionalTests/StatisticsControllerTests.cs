@@ -107,7 +107,7 @@ namespace TestingPlatform.Api.Tests.FunctionalTests
             foreach (var question in questions)
             {
                 question.Question = GetRandomString();
-                question.Answer = GetRandomString();
+                question.Answer = GetRandomString().ToUpper();
                 _questionsClient.UpdateAsync(question).GetAwaiter().GetResult();
             }
 
@@ -117,7 +117,7 @@ namespace TestingPlatform.Api.Tests.FunctionalTests
         private void GenerateAnswers(List<QuestionDto> questions, int resultsCount, int wrongAnswersCount)
         {
             var answers = questions.Select(q => 
-                new AnswerDto { QuestionId = q.Id, UserAnswer = q.Answer }).ToList();
+                new AnswerDto { QuestionId = q.Id, UserAnswer = q.Answer.ToLower() }).ToList();
 
             for (var i = 0; i < wrongAnswersCount; i++) 
                 answers[i].UserAnswer = GetRandomString();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using TestingPlatform.Api.Helpers;
 using TestingPlatform.Api.Models;
 using TestingPlatform.Api.Models.Dal;
 using EntityState = TestingPlatform.Api.Models.Enums.EntityState;
@@ -56,10 +57,7 @@ namespace TestingPlatform.Api.Core
         private double CalculateScore(List<AnswerDbo> answersDbo, TestDbo testDbo)
         {
             var rightAnswersCount = answersDbo.Count(a => 
-                string.Equals(
-                    a.RightAnswer?.Trim(),
-                    a.UserAnswer?.Trim(),
-                    StringComparison.InvariantCultureIgnoreCase));
+                AnswersHelper.CheckAnswer(a.UserAnswer, a.RightAnswer));
 
             return (double) rightAnswersCount / testDbo.Questions.Count;
         }
